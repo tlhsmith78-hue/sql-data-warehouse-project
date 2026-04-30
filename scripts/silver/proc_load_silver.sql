@@ -1,10 +1,20 @@
 /*
 ===============================================================
-DDL Script: Create Bronze Tables
+Stored Procedure : Loads Silver Layer (Bronze -> Silver)
 ===============================================================
 Script Purpose:
-  Creates tables in the 'bronze' schema, dropping existing tables if they already exist.
-  Run this script to redefine the DDL structure of the 'bronze' tables.
+	This stored procedure performs the ETL (Extract, Transform, Load) process
+	to populate the 'silver' schema tables from the 'bronze' schema.
+	Loads data into the 'silver' schema from existing CSV files.
+	Running this script will 
+		- truncate the 'silver' tables,
+		- Inserts transformed and cleansed data from Bronze into Silver tables.
+
+Parameters:
+  None. This procedure does not accept parameters and does not return any values.
+
+Usage Example:
+  CALL silver.load_silver();
 ===============================================================
 */
 
@@ -197,5 +207,3 @@ BEGIN
 	EXTRACT(milliseconds FROM (clock_timestamp() - t_start));
 END;
 $$
-
-CALL silver.load_silver();
